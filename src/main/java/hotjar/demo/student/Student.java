@@ -10,7 +10,7 @@ public class Student {
     private Integer age;
 
     public Student() {
-        //
+        // no-arg default consturctor;
     }
     
     public Student(Long id, String name, String email, LocalDate dob, Integer age) {
