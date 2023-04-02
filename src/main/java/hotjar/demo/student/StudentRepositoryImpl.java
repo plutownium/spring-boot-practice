@@ -39,7 +39,7 @@ public class StudentRepositoryImpl implements StudentRepository{
         
     // }
 
-    public List<Student> getAll() {
+    public List<Student> getAll() { 
         Student student = new Student(1L, "Fat Toney", "tony@gmail.com", LocalDate.of(2000, Month.DECEMBER, 5), 21);
         Student bart = new Student(2L, "Bart Simpson", "bart@gmail.com", LocalDate.of(2000, Month.JANUARY, 4), 25);
         List<Student> students = List.of(student, bart);
@@ -47,8 +47,10 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     public Student create(Student student) {
-
-        PostgreSQLJDBC thing = new PostgreSQLJDBC(); // todo: test me
+        String[] h = {"hats", "cats"};
+        PostgreSQLJDBC.connect();
+        // PostgreSQLJDBC thing = new PostgreSQLJDBC(); // todo: test me
+        // thing.connect();
         System.out.print("new dtudent");
        
 

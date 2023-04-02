@@ -5,18 +5,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Value;
 
 public class PostgreSQLJDBC {
 
+
+
+    @Value("${spring.datasource.url}")
+    private String url;
+
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.password}")
+    private String password;
+
+
     private Connection c;
-   public static void main( String args[] ) {
+   public static void connect() {
       Connection c = null;
       Statement stmt = null;
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://localhost:5432/testdb",
-            "manisha", "123");
+            .getConnection("jdbc:postgresql://localhost:5432/student",
+            "postgres", "postgres");
          System.out.println("Opened database successfully");
         // setConnection(c);
          stmt = c.createStatement();
