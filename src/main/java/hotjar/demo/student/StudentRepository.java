@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository {
     
+    public char foo();
+
     public List<Student> getAll();
 
-    public Student create();
+    // public Student create();
 
     public String delete();
 }

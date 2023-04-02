@@ -24,6 +24,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+
     @GetMapping(value = "/")
 	public List<Student> getStudents() {
         return studentService.getStudents();
@@ -39,5 +40,11 @@ public class StudentController {
     @DeleteMapping(value = "/")
     public String deleteStudent() {
         return studentService.deleteStudent();
+    }
+
+
+    @GetMapping(value = "/health")
+    public String Health() {
+        return "Online";
     }
 }

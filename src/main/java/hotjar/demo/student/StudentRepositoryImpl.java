@@ -9,20 +9,35 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import hotjar.demo.db.PostgreSQLJDBC;
+
+
+ // TODO: create a student
+        // TODO: delete a student
+        // TODO: Update a student
+        // TODO: unit test creating a student
+        // TODO: unit test gettingg 3 student
+        // TODO: unit test deleting a student
+
+@Service
 public class StudentRepositoryImpl implements StudentRepository{
     
-     private final DataSource dataSource;
-
-    @Autowired
-    public void StudentRepository(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public char foo() {
+        return 'c';
     }
+    //  private final DataSource dataSource;
 
-    public void deleteStudent(Long id) {
-        String sql = "DELETE FROM students WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-    }
+    // @Autowired
+    // public void StudentRepository(DataSource dataSource) {
+    //     this.dataSource = dataSource;
+    // }
+
+    // public void deleteStudent(Long id) {
+    //     String sql = "DELETE FROM students WHERE id = ?";
+        
+    // }
 
     public List<Student> getAll() {
         Student student = new Student(1L, "Fat Toney", "tony@gmail.com", LocalDate.of(2000, Month.DECEMBER, 5), 21);
@@ -32,13 +47,10 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     public Student create(Student student) {
+
+        PostgreSQLJDBC thing = new PostgreSQLJDBC(); // todo: test me
         System.out.print("new dtudent");
-        // TODO: create a student
-        // TODO: delete a student
-        // TODO: Update a student
-        // TODO: unit test creating a student
-        // TODO: unit test gettingg 3 student
-        // TODO: unit test deleting a student
+       
 
         System.out.print(student);
         return new Student(3L, "hat", "cat", LocalDate.of(2000, Month.MARCH, 3), 5);

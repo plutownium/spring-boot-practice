@@ -1,39 +1,41 @@
-package hotjar.demo.config;
+// package hotjar.demo.config;
 
-import javax.sql.DataSource;
+// import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.apache.commons.dbcp2.BasicDataSource;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Value;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.jdbc.core.JdbcTemplate;
+// import org.springframework.jdbc.datasource.DriverManagerDataSource;
+// import org.apache.commons.dbcp2.BasicDataSource;
 
-@Configuration
-public class AppConfig {
 
-    @Autowired
-    private DataSource dataSource;
 
-    @Value("${spring.datasource.url}")
-    private String url;
+// @Configuration
+// public class AppConfig {
 
-    @Value("${spring.datasource.username}")
-    private String username;
+//     @Autowired
+//     private DataSource dataSource;
 
-    @Value("${spring.datasource.password}")
-    private String password;
+//     @Value("${spring.datasource.url}")
+//     private String url;
 
-    @Bean
-    public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
-    }
+//     @Value("${spring.datasource.username}")
+//     private String username;
 
-    // Other bean definitions...
-}
+//     @Value("${spring.datasource.password}")
+//     private String password;
+
+//     @Bean
+//     public DataSource dataSource() {
+//         BasicDataSource dataSource = new BasicDataSource();
+//         dataSource.setDriverClassName("org.postgresql.Driver");
+//         dataSource.setUrl(url);
+//         dataSource.setUsername(username);
+//         dataSource.setPassword(password);
+//         return dataSource;
+//     }
+
+//     // Other bean definitions...
+// }
