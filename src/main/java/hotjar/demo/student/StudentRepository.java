@@ -1,14 +1,19 @@
-// package hotjar.demo.student;
+package hotjar.demo.student;
 
-// import org.springframework.stereotype.Repository;
+import java.util.List;
 
-// @Repository
-// public interface StudentRepository {
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StudentRepository {
     
-//     public Student getAllStudents() {
-//         //
-//     }
-// }
+    public List<Student> getAll();
+
+    public Student create();
+
+    public String delete();
+}
 
 // ***
 // gpt wrote this
