@@ -21,14 +21,6 @@ public class Database
 {
 
 
-    // @Value("${spring.datasource.url}")
-    // private String DATABASE_URL;
-
-    // @Value("${spring.datasource.username}")
-    // private String USERNAME;
-
-    // @Value("${spring.datasource.password}")
-    // private String PASSWORD;
 
 
     // init database constants
@@ -121,7 +113,9 @@ public class Database
     public ResultSet operate(String query) throws SQLException
     {        
         statement = connection.createStatement();
-        
+        System.out.println("#############");
+        System.out.println(query);
+        System.out.println("#############");
         ResultSet resultSet = statement.executeQuery(query);
         
         return resultSet;        
@@ -147,14 +141,14 @@ public class Database
         System.out.println(tableName + " foo foo foo");
         statement = connection.createStatement();
 
-        String sql = String.format("CREATE TABLE %s " +
-        "(ID INT PRIMARY KEY     NOT NULL," +
-        " NAME           TEXT    NOT NULL, " +
-        " EMAIL          TEXT    NOT NULL, " +
-        " DOB            DATE    NOT NULL, " +
-        " AGE            INT     NOT NULL, " +
-        " ADDRESS        CHAR(50), " +
-        " GPA            REAL)", tableName);
+        String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +
+        "(ID                    SERIAL PRIMARY KEY," +
+        " NAME                  TEXT    NOT NULL, " +
+        " EMAIL                 TEXT    NOT NULL, " +
+        " DOB                   DATE    NOT NULL, " +
+        " AGE                   INT     NOT NULL, " +
+        " ADDRESS               CHAR(50), " +
+        " GPA                   REAL)", tableName);
         ResultSet resultSet = statement.executeQuery(sql);
         
         return resultSet;   
