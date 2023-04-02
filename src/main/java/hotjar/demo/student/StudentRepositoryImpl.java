@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hotjar.demo.db.PostgreSQLJDBC;
+import hotjar.demo.db.Database;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 
 
  // TODO: create a student
@@ -28,11 +32,12 @@ public class StudentRepositoryImpl implements StudentRepository{
         return 'c';
     }
     //  private final DataSource dataSource;
+    private Connection connection;
 
     // @Autowired
-    // public void StudentRepository(DataSource dataSource) {
-    //     this.dataSource = dataSource;
-    // }
+    public void StudentRepository(DataSource dataSource) {
+        // this.connection = 
+    }
 
     // public void deleteStudent(Long id) {
     //     String sql = "DELETE FROM students WHERE id = ?";
@@ -47,8 +52,32 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     public Student create(Student student) {
-        String[] h = {"hats", "cats"};
-        PostgreSQLJDBC.connect();
+        System.out.println("in the create");
+        Database db = new Database();
+        try {
+            
+            System.out.println("try connect");
+            db.connect();
+        } catch(Exception e) {
+            System.out.println("error!!!!!! with connecting");
+            throw e;
+        }
+        try {
+            System.out.print("creating student table");
+            db.createTableIfNotExists("STUDENT");
+        } catch(SQLException e) {
+            System.out.println("error! with creating student");
+            System.out.println(e.getMessage());
+        }
+        String sqlForStudent = SQLMaker.makeStudentSQL(student);
+        try {            
+            System.out.println(sqlForStudent);
+            db.operate(sqlForStudent);
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        // PostgreSQLJDBC.connect();
+        
         // PostgreSQLJDBC thing = new PostgreSQLJDBC(); // todo: test me
         // thing.connect();
         System.out.print("new dtudent");
