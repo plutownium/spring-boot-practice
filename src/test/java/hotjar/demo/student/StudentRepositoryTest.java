@@ -18,13 +18,14 @@ public class StudentRepositoryTest {
  
     // @Autowired
     // @Qualifier("StudentRepositoryImpl")
-    private StudentRepository underTest;
+    private StudentRepositoryImpl underTest;
     public StudentRepositoryTest() {
-        this.underTest = new StudentRepositoryImpl();
+        this.underTest = new StudentRepositoryImpl("testing");
     }
 
     @BeforeEach
     void reset() {
+        underTest.createTableIfNotExists();
         underTest.destroyAll();
     }
 

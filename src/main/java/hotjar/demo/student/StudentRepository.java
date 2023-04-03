@@ -11,6 +11,8 @@ public interface StudentRepository  {
     
     public char foo();
 
+    public void createTableIfNotExists();
+
     public List<Student> getAll();
 
     public Student create(Student student);

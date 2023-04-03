@@ -4,7 +4,6 @@ package hotjar.demo.student;
 public class StudentSQLMaker {
     
     public static String makeCreateStudentSQL(Student student) {
-        System.out.println("Here is student @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.println(student);
         return String.format("INSERT INTO Students (NAME, EMAIL, DOB, AGE) " + 
         "VALUES ('%s', '%s', '%s', %s) " +

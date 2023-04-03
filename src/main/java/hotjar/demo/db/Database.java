@@ -5,6 +5,7 @@ import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +21,17 @@ import java.util.Properties;
 public class Database
 {
 
+    private String mode;
 
-
+    public Database(String mode) {
+        this.mode = mode;
+    }
 
     // init database constants
     private static final String DATABASE_DRIVER = "org.postgresql.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/student";
+    private static final String TEST_DB_DRIVER = DATABASE_DRIVER;
+    private static final String TEST_DB_URL = "jdbc:postgresql://localhost:5432/studentstest";
     // private static final String USERNAME = "root";
     // private static final String PASSWORD = "";
     private static final String MAX_POOL = "250";
@@ -59,6 +65,23 @@ public class Database
         return properties;
     }
 
+    private Properties getTestDbProperties() {
+        if (properties == null) {
+            properties = new Properties();
+            properties.setProperty("user", "postgres");
+            
+            properties.setProperty("password", "postgres");
+            
+            properties.setProperty("MaxPooledStatements", MAX_POOL);
+        }
+        return properties;
+    }
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
     /**
      * Connect to the database  
      * 
@@ -70,13 +93,23 @@ public class Database
         {         
             try
             {
-                Class.forName(DATABASE_DRIVER);
-                
-                connection = (Connection) DriverManager.getConnection(DATABASE_URL, getProperties());
+                System.out.println(ANSI_GREEN + mode + ANSI_RESET);
+                if ("testing".equals(mode)) {
+                    Class.forName(TEST_DB_DRIVER);
+                    connection = (Connection) DriverManager.getConnection(TEST_DB_URL, getTestDbProperties());
+                    System.out.println(ANSI_GREEN + "Testing db connection established" + ANSI_RESET);
+                } else {
+                    Class.forName(DATABASE_DRIVER);
+                    System.out.println(ANSI_GREEN + "Dev db connection established" + ANSI_RESET);
+                    connection = (Connection) DriverManager.getConnection(DATABASE_URL, getProperties());
+                }
             }
             catch (ClassNotFoundException | SQLException e)
             {
+                System.out.println(ANSI_RED + "PROBLEM\n#########\n#######" + ANSI_RESET);
+                System.out.println(e.getMessage());
                 e.printStackTrace();
+                System.out.println(ANSI_RED + "########\n#######\n"+ANSI_RESET);
             }
         }
         return connection;
@@ -113,9 +146,7 @@ public class Database
     public ResultSet operate(String query) throws SQLException
     {        
         statement = connection.createStatement();
-        System.out.println("#############");
         System.out.println(query);
-        System.out.println("#############");
         ResultSet resultSet = statement.executeQuery(query);
         
         return resultSet;        
@@ -138,7 +169,6 @@ public class Database
     }
 
     public ResultSet createTableIfNotExists(String tableName) throws SQLException {
-        System.out.println(tableName + " foo foo foo");
         statement = connection.createStatement();
 
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s " +

@@ -36,9 +36,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public class StudentRepositoryImpl implements StudentRepository {
     
-    
+    private String mode;
+    private Database db;
+    public StudentRepositoryImpl(String mode) {
+        this.mode = mode;
+        Database started = new Database(mode);
+        started.connect();
+        this.db = started;
+    }
+
     public char foo() {
         return 'c';
+    }
+
+    public void createTableIfNotExists() {
+        try {
+
+            db.createTableIfNotExists("Students");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Autowired
@@ -53,15 +70,15 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     public List<Student> getAll() { 
 
-        Database db = new Database();
-        try {
+        // Database db = new Database();
+        // try {
             
-            System.out.println("try connect --- in the getAll");
-            db.connect();
-        } catch(Exception e) {
-            System.out.println("error!!!!!! with connecting");
-            throw e;
-        }
+        //     System.out.println("try connect --- in the getAll");
+        //     // db.connect();
+        // } catch(Exception e) {
+        //     System.out.println("error!!!!!! with connecting");
+        //     throw e;
+        // }
 
         List<Student> currentStudents = new ArrayList<Student>();
         String sqlForStudent = StudentSQLMaker.makeGetAllStudentsSQL();
@@ -73,7 +90,6 @@ public class StudentRepositoryImpl implements StudentRepository {
             // boolean x = resultSet.next();
             // System.out.println(x);
             while (resultSet.next()) {
-                System.out.println("FOO FOO FOO FOO");
                 Long id = Long.valueOf(resultSet.getInt("id"));
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
@@ -81,7 +97,6 @@ public class StudentRepositoryImpl implements StudentRepository {
                 String address = resultSet.getString("address");
                 double gpa = resultSet.getDouble("gpa");
                 LocalDate dob = resultSet.getDate("dob").toLocalDate();
-                System.out.println("HAT HAT HAT HAT");
                 Student retrieved = new Student(id, name, email, dob, age);
                 currentStudents.add(retrieved);
             }
@@ -94,15 +109,15 @@ public class StudentRepositoryImpl implements StudentRepository {
     public Student create(Student student) {
         System.out.println("in the create. Here is student");
         System.out.println(student);
-        Database db = new Database();
-        try {
+        // Database db = new Database();
+        // try {
             
-            System.out.println("try connect");
-            db.connect();
-        } catch(Exception e) {
-            System.out.println("error!!!!!! with connecting");
-            throw e;
-        }
+        //     System.out.println("try connect");
+        //     db.connect();
+        // } catch(Exception e) {
+        //     System.out.println("error!!!!!! with connecting");
+        //     throw e;
+        // }
 
         Student newStudent;
         String sqlForStudent = StudentSQLMaker.makeCreateStudentSQL(student);
@@ -113,7 +128,6 @@ public class StudentRepositoryImpl implements StudentRepository {
             boolean x = resultSet.next();
             System.out.println(x);
             while (x) {
-                System.out.println("FOO FOO FOO FOO");
                 Long id = Long.valueOf(resultSet.getInt("id"));
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
@@ -121,7 +135,6 @@ public class StudentRepositoryImpl implements StudentRepository {
                 String address = resultSet.getString("address");
                 double gpa = resultSet.getDouble("gpa");
                 LocalDate dob = resultSet.getDate("dob").toLocalDate();
-               System.out.println("HAT HAT HAT HAT");
                 newStudent = new Student(id, name, email, dob, age);
                 // Student newStudent = new Student(3L, "hatttt", "cattttt", LocalDate.of(1111, Month.MARCH, 3), 5);
                 return newStudent;
@@ -136,15 +149,15 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     public String delete(int id) {
-        Database db = new Database();
-        try {
+        // Database db = new Database();
+        // try {
             
-            System.out.println("try connect --- in the getAll");
-            db.connect();
-        } catch(Exception e) {
-            System.out.println("error!!!!!! with connecting");
-            throw e;
-        }
+        //     System.out.println("try connect --- in the getAll");
+        //     db.connect();
+        // } catch(Exception e) {
+        //     System.out.println("error!!!!!! with connecting");
+        //     throw e;
+        // }
 
         String sqlForStudent = StudentSQLMaker.makeDeleteStudentSQL(id);
 
@@ -159,7 +172,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     public void destroyAll() {
-        Database db = new Database();
+        // Database db = new Database();
         String sql = StudentSQLMaker.destroyAll();
         
         try {            
