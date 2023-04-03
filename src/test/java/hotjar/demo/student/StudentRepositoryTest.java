@@ -16,8 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest 
 public class StudentRepositoryTest {
  
-    // @Autowired
-    // @Qualifier("StudentRepositoryImpl")
     private StudentRepositoryImpl underTest;
     public StudentRepositoryTest() {
         this.underTest = new StudentRepositoryImpl("testing");

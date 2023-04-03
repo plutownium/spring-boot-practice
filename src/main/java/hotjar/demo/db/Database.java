@@ -94,7 +94,8 @@ public class Database
             try
             {
                 System.out.println(ANSI_GREEN + mode + ANSI_RESET);
-                if ("testing".equals(mode)) {
+                boolean testingMode = new String("testing").equals(mode);
+                if (testingMode) {
                     Class.forName(TEST_DB_DRIVER);
                     connection = (Connection) DriverManager.getConnection(TEST_DB_URL, getTestDbProperties());
                     System.out.println(ANSI_GREEN + "Testing db connection established" + ANSI_RESET);
@@ -145,6 +146,9 @@ public class Database
      */
     public ResultSet operate(String query) throws SQLException
     {        
+        // ##
+        // heavy lifter
+        // ##
         statement = connection.createStatement();
         System.out.println(query);
         ResultSet resultSet = statement.executeQuery(query);

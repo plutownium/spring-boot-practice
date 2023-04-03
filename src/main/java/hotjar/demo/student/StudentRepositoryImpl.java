@@ -24,9 +24,7 @@ import java.sql.SQLException;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-// TODO: unit test creating a student
-// TODO: unit test gettingg 3 student
-        // TODO: unit test deleting a student
+
 
 // todo: make an account/user table
 // todo: a profile table
@@ -36,10 +34,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public class StudentRepositoryImpl implements StudentRepository {
     
-    private String mode;
     private Database db;
     public StudentRepositoryImpl(String mode) {
-        this.mode = mode;
         Database started = new Database(mode);
         started.connect();
         this.db = started;
@@ -70,16 +66,6 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     public List<Student> getAll() { 
 
-        // Database db = new Database();
-        // try {
-            
-        //     System.out.println("try connect --- in the getAll");
-        //     // db.connect();
-        // } catch(Exception e) {
-        //     System.out.println("error!!!!!! with connecting");
-        //     throw e;
-        // }
-
         List<Student> currentStudents = new ArrayList<Student>();
         String sqlForStudent = StudentSQLMaker.makeGetAllStudentsSQL();
         ResultSet resultSet;
@@ -109,16 +95,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     public Student create(Student student) {
         System.out.println("in the create. Here is student");
         System.out.println(student);
-        // Database db = new Database();
-        // try {
-            
-        //     System.out.println("try connect");
-        //     db.connect();
-        // } catch(Exception e) {
-        //     System.out.println("error!!!!!! with connecting");
-        //     throw e;
-        // }
-
+   
         Student newStudent;
         String sqlForStudent = StudentSQLMaker.makeCreateStudentSQL(student);
         ResultSet resultSet;
@@ -149,15 +126,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     public String delete(int id) {
-        // Database db = new Database();
-        // try {
-            
-        //     System.out.println("try connect --- in the getAll");
-        //     db.connect();
-        // } catch(Exception e) {
-        //     System.out.println("error!!!!!! with connecting");
-        //     throw e;
-        // }
+     
 
         String sqlForStudent = StudentSQLMaker.makeDeleteStudentSQL(id);
 

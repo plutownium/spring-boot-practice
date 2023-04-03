@@ -32,7 +32,6 @@ public class StudentController {
     @GetMapping(value = "/")
 	public List<Student> getStudents() {
         return studentService.getStudents();
-		// return List.of(student, bart);
 	}
 
     @PostMapping(value = "/")
@@ -40,7 +39,6 @@ public class StudentController {
         System.out.println("here! 37rm");
         System.out.println(student);
         System.out.println("here! 39rm");
-        // return new Student(1, "temp", "temp", )
         return studentService.createStudent(student);
     }
 
