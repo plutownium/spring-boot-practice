@@ -1,4 +1,4 @@
-package hotjar.demo.student;
+package hotjar.demo.classes.student;
 
 
 public class StudentSQLMaker {
