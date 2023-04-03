@@ -1,12 +1,10 @@
-package hotjar.demo.student;
+package hotjar.demo.classes.student;
 
 import java.util.List;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository // fixme: do i need that @repo?
 public interface StudentRepository  {
     
     public char foo();

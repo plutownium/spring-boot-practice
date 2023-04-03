@@ -1,9 +1,12 @@
-package hotjar.demo.student;
+package hotjar.demo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import hotjar.demo.classes.student.Student;
+import hotjar.demo.classes.student.StudentRepositoryImpl;
 
 @Service
 public class StudentService {
