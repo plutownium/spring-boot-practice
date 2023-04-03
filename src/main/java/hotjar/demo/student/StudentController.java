@@ -5,6 +5,9 @@ package hotjar.demo.student;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import hotjar.demo.util.IdField;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +45,11 @@ public class StudentController {
     }
 
     @DeleteMapping(value = "/")
-    public String deleteStudent() {
-        return studentService.deleteStudent();
+    public String deleteStudent(@RequestBody IdField id) {
+        System.out.println("here is id");
+        System.out.println(id);
+        System.out.println("================================");
+        return studentService.deleteStudent(id.getId());
     }
 
 

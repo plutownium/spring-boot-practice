@@ -1,6 +1,7 @@
 package hotjar.demo.student;
 
-public class SQLMaker {
+
+public class StudentSQLMaker {
     
     public static String makeCreateStudentSQL(Student student) {
         System.out.println("Here is student @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -12,5 +13,13 @@ public class SQLMaker {
 
     public static String makeGetAllStudentsSQL() {
         return "SELECT * FROM Students";
+    }
+
+    public static String makeDeleteStudentSQL(int id) {
+        return String.format("DELETE FROM Students WHERE id = %s RETURNING *", id);
+    }
+
+    public static String destroyAll() {
+        return "DELETE FROM Students;";
     }
 }

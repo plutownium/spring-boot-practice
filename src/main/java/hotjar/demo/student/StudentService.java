@@ -23,7 +23,7 @@ public class StudentService {
         return studentRepository.create(student);
     }
 
-    public String deleteStudent() {
-        return studentRepository.delete();
+    public String deleteStudent(int id) {
+        return studentRepository.delete(id);
     }
 }

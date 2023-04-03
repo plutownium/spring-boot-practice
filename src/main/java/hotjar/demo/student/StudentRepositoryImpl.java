@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.hibernate.sql.results.spi.ResultsConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import hotjar.demo.db.PostgreSQLJDBC;
@@ -20,41 +22,36 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 
-
- // TODO: create a student
-        // TODO: delete a student
-        // TODO: Update a student
-        // TODO: unit test creating a student
-        // TODO: unit test gettingg 3 student
+// TODO: unit test creating a student
+// TODO: unit test gettingg 3 student
         // TODO: unit test deleting a student
 
-@Service
-public class StudentRepositoryImpl implements StudentRepository{
+// todo: make an account/user table
+// todo: a profile table
+// todo: make a website table
+// todo: recordings table
+// todo: make a customer table
+
+public class StudentRepositoryImpl implements StudentRepository {
+    
     
     public char foo() {
         return 'c';
     }
-    //  private final DataSource dataSource;
-    private Database db;
 
-    // @Autowired
+    @Autowired
     public void StudentRepository(DataSource dataSource) {
-        // this.connection = 
-        // this.db = new Database();
-        // db.connect();
-
     }
 
-    // public void deleteStudent(Long id) {
-    //     String sql = "DELETE FROM students WHERE id = ?";
-        
-    // }
+
+    public boolean emailExists(String email) {
+        //
+        return true;
+    }
 
     public List<Student> getAll() { 
-        // Student student = new Student(1L, "Fat Toney", "tony@gmail.com", LocalDate.of(2000, Month.DECEMBER, 5), 21);
-        // Student bart = new Student(2L, "Bart Simpson", "bart@gmail.com", LocalDate.of(2000, Month.JANUARY, 4), 25);
-        // List<Student> students = List.of(student, bart);
 
         Database db = new Database();
         try {
@@ -67,7 +64,7 @@ public class StudentRepositoryImpl implements StudentRepository{
         }
 
         List<Student> currentStudents = new ArrayList<Student>();
-        String sqlForStudent = SQLMaker.makeGetAllStudentsSQL();
+        String sqlForStudent = StudentSQLMaker.makeGetAllStudentsSQL();
         ResultSet resultSet;
 
         try {            
@@ -108,7 +105,7 @@ public class StudentRepositoryImpl implements StudentRepository{
         }
 
         Student newStudent;
-        String sqlForStudent = SQLMaker.makeCreateStudentSQL(student);
+        String sqlForStudent = StudentSQLMaker.makeCreateStudentSQL(student);
         ResultSet resultSet;
         try {            
             System.out.println(sqlForStudent);
@@ -138,7 +135,38 @@ public class StudentRepositoryImpl implements StudentRepository{
         // return new Student()
     }
 
-    public String delete() {
-        return "Success";
+    public String delete(int id) {
+        Database db = new Database();
+        try {
+            
+            System.out.println("try connect --- in the getAll");
+            db.connect();
+        } catch(Exception e) {
+            System.out.println("error!!!!!! with connecting");
+            throw e;
+        }
+
+        String sqlForStudent = StudentSQLMaker.makeDeleteStudentSQL(id);
+
+        try {            
+            System.out.println(sqlForStudent);
+            db.operate(sqlForStudent);
+            return "Success";
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "Fail";
+    }
+
+    public void destroyAll() {
+        Database db = new Database();
+        String sql = StudentSQLMaker.destroyAll();
+        
+        try {            
+            System.out.println(sql);
+            db.operate(sql);
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

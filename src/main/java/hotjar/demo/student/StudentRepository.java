@@ -2,19 +2,24 @@ package hotjar.demo.student;
 
 import java.util.List;
 
-
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepository {
+public interface StudentRepository  {
     
     public char foo();
 
     public List<Student> getAll();
 
-    // public Student create();
+    public Student create(Student student);
 
-    public String delete();
+    public String delete(int id);
+
+    public void destroyAll();
+
+    public boolean emailExists(String email);
 }
 
 // ***
